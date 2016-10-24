@@ -28,13 +28,20 @@ public class Hurricane {
     @Column(nullable = false)
     String image;
 
+    @ManyToOne
+    User user;
+
+    @Transient
+    boolean isMe;
+
     public Hurricane() {
     }
 
-    public Hurricane(String name, String location, Category category, String image) {
+    public Hurricane(String name, String location, Category category, String image, User user) {
         this.name = name;
         this.location = location;
         this.category = category;
         this.image = image;
+        this.user = user;
     }
 }
