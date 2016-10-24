@@ -1,0 +1,68 @@
+<html>
+<body>
+
+<br>
+<br>
+<a href="/">All</a>
+<a href="/?category=ONE">Cat 1</a>
+<a href="/?category=TWO">Cat 2</a>
+<a href="/?category=THREE">Cat 3</a>
+<a href="/?category=FOUR">Cat 4</a>
+<a href="/?category=FIVE">Cat 5</a>
+
+<form action="/" method="get">
+    <input type="text" placeholder="Name or Location" name="search"/>
+    <button type="submit">Search</button>
+</form>
+
+<form action="/hurricane" method="post">
+    <input type="text" placeholder="Hurricane Name" name="hname"/>
+    <input type="text" placeholder="Hurricane Location" name="hlocation"/>
+    <select name="hcategory">
+        <option selected disabled>Category</option>
+        <option value="ONE">1</option>
+        <option value="TWO">2</option>
+        <option value="THREE">3</option>
+        <option value="FOUR">4</option>
+        <option value="FIVE">5</option>
+    </select>
+    <br>
+    <br>
+    <input type="text" placeholder="Image URL" name="himage"/>
+    <br>
+    <br>
+    <button type="submit">Submit Hurricane</button>
+</form>
+
+<table align="center" width="400px">
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Category</th>
+        <th>Submitter</th>
+        <th>Image</th>
+        <th>Delete</th>
+        <th>Edit</th>
+    </tr>
+    {{#hurricanes}}
+    <tr>
+        <form action="/delete-hurricane" method="post">
+            <input type="hidden" value="{{id}}" name="id">
+            <td>{{name}}</td>
+            <td>{{location}}</td>
+            <td>{{category}}</td>
+            <td>{{user}}</td>
+            <td><img src="{{image}}" width="100" height="100"/></td>
+            <td><button type="submit">Delete</button></td>
+        </form>
+        <td>
+            <form action="/edit-hurricane" method="get">
+                <input type="hidden" value="{{id}}" name="id">
+                <button type="submit">Edit</button>
+            </form>
+        </td>
+    </tr>
+    {{/hurricanes}}
+</table>
+</body>
+</html>

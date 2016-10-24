@@ -31,8 +31,7 @@ public class Hurricane {
     public Hurricane() {
     }
 
-    public Hurricane(int id, String name, String location, Category category, String image) {
-        this.id = id;
+    public Hurricane(String name, String location, Category category, String image) {
         this.name = name;
         this.location = location;
         this.category = category;
