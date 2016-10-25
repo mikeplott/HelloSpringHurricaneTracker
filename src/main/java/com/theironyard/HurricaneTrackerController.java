@@ -90,31 +90,38 @@ public class HurricaneTrackerController {
 
     @RequestMapping(path = "/delete-hurricane", method = RequestMethod.POST)
     public String deleteHurricane(int id, HttpSession session) throws Exception {
-        String name = (String) session.getAttribute("username");
-        User user = users.findFirstByName(name);
-        Hurricane h = hurricanes.findOne(id);
-        if (user == null) {
-         throw new Exception("Not logged in.");
+        if (!validateUser(session, id)) {
+            throw new Exception("Not allowed!");
         }
-        else if (!user.name.equals(h.user.name)) {
-            throw new Exception("Not yours to delete!");
-        }
-        hurricanes.delete(h);
+        hurricanes.delete(id);
         return "redirect:/";
     }
 
+    @RequestMapping(path = "/edit-hurricane", method = RequestMethod.GET)
+    public String edit(Model model, int id) {
+        Hurricane h = hurricanes.findOne(id);
+        model.addAttribute("hurricane", h);
+        return "edit-hurricane";
+    }
+
     @RequestMapping(path = "/edit-hurricane", method = RequestMethod.POST)
-    public String editHurricane(int id, HttpSession session) throws Exception {
+    public String editHurricane(int hid, String hname, String hlocation, Hurricane.Category hcategory, String himage, HttpSession session) throws Exception {
+        if (!validateUser(session, hid)) {
+            throw new Exception("Not allowed!");
+        }
+        Hurricane h = hurricanes.findOne(hid);
+        h.name = hname;
+        h.location = hlocation;
+        h.category = hcategory;
+        h.image = himage;
+        hurricanes.save(h);
+        return "redirect:/";
+    }
+
+    public boolean validateUser(HttpSession session, int id) {
         String name = (String) session.getAttribute("username");
         User user = users.findFirstByName(name);
         Hurricane h = hurricanes.findOne(id);
-        if (user == null) {
-            throw new Exception("Not logged in.");
-        }
-        else if (!user.name.equals(h.user.name)) {
-            throw new Exception("Not yours to edit!");
-        }
-
-        return "redirect:/";
+        return user != null && h != null && user.name.equals(h.user.name);
     }
 }
