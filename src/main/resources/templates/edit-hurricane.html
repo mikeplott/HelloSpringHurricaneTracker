@@ -21,9 +21,9 @@
     <form action="/edit-hurricane" method="post">
         <tr>
             <input type="hidden" value="{{id}}" name="hid">
-            <td><input type="text" placeholder="Hurricane name" value="{{name}}" id="hname"></td>
-            <td><input type="text" placeholder="Hurricane location" value="{{location}}" id="hlocation"></td>
-            <td><select name="hcategory" id="category">
+            <td><input type="text" placeholder="Hurricane name" value="{{name}}" name="hname"></td>
+            <td><input type="text" placeholder="Hurricane location" value="{{location}}" name="hlocation"></td>
+            <td><select name="hcategory" name="category" id="category">
                 <option selected disabled>Category</option>
                 <option value="ONE">1</option>
                 <option value="TWO">2</option>
@@ -31,7 +31,7 @@
                 <option value="FOUR">4</option>
                 <option value="FIVE">5</option>
             </select></td>
-            <td><input type="text" placeholder="Hurricane image url" id="himage"></td>
+            <td><input type="text" placeholder="Hurricane image url" name="himage"></td>
             <td><button type="submit">Submit</button></td>
         </tr>
     </form>

@@ -44,18 +44,20 @@
     <br>
     <br>
     <input type="text" placeholder="Image URL" name="himage"/>
+    <input type="date" name="date" value="{{now}}"/>
     <br>
     <br>
     <button type="submit">Submit Hurricane</button>
 </form>
 
-<table align="center" width="400px">
+<table align="center" width="700px">
     <tr>
         <th>Name</th>
         <th>Location</th>
         <th>Category</th>
         <th>Submitter</th>
         <th>Image</th>
+        <th>Date</th>
         <th>Delete</th>
         <th>Edit</th>
     </tr>
@@ -68,6 +70,7 @@
             <td>{{category}}</td>
             <td>{{#user}}{{name}}{{/user}}</td>
             <td><img src="{{image}}" width="100" height="100"/></td>
+            <td width="100px">{{date}}</td>
             {{#isMe}}
             <td><button type="submit">Delete</button></td>
         </form>
